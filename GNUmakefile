@@ -14,7 +14,7 @@ define DEFAULT_VAR =
 endef
 
 # Toolchain for building the 'limine' executable for the host.
-override DEFAULT_HOST_CC := x86_64-elf-gcc
+override DEFAULT_HOST_CC := cc
 $(eval $(call DEFAULT_VAR,HOST_CC,$(DEFAULT_HOST_CC)))
 override DEFAULT_HOST_CFLAGS := -g -O2 -pipe
 $(eval $(call DEFAULT_VAR,HOST_CFLAGS,$(DEFAULT_HOST_CFLAGS)))
@@ -54,7 +54,7 @@ ovmf:
 limine:
 	git clone https://github.com/limine-bootloader/limine.git --branch=v7.x-binary --depth=1
 	$(MAKE) -C limine \
-		CC="x86_64-elf-gcc" \
+		CC="cc" \
 		CFLAGS="$(HOST_CFLAGS)" \
 		CPPFLAGS="$(HOST_CPPFLAGS)" \
 		LDFLAGS="$(HOST_LDFLAGS)" \

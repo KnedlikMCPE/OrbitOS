@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <drivers/tty/tty.h>
 #include "limine.h"
+#include "globals.h"
 
 // Set the base revision to 1, this is recommended as this is the latest
 // base revision described by the Limine boot protocol specification.
@@ -89,6 +90,7 @@ static void hcf(void) {
 // If renaming _start() to something else, make sure to change the
 // linker script accordingly.
 void _start(void) {
+
     // Ensure the bootloader actually understands our base revision (see spec).
     if (LIMINE_BASE_REVISION_SUPPORTED == false) {
         hcf();
@@ -101,11 +103,14 @@ void _start(void) {
     }
 
     // Fetch the first framebuffer.
-    struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
+    framebuffer = framebuffer_request.response->framebuffers[0];
 
     // Note: we assume the framebuffer model is RGB with 32-bit pixels.
-    puts(1, 1, "Hello, World!\0", 0xFFFFFF, framebuffer);
-
+    kprintf("Hello from kprintf!\n");
+    kprintf("I am a kernel!\n");
+    kprintf("\n");
+    kprintf("My framebuffer lives at: %p\n", framebuffer);
+    kprintf("It is %dx%d\n", framebuffer->width, framebuffer->height);
     // We're done, just hang...
     hcf();
 }
