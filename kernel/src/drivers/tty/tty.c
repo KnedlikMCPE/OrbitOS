@@ -69,6 +69,7 @@ void vprintf(char* s, va_list args) {
                     int val = va_arg(args, int);
                     if (val < 0) {
                         stdout[stdout_cursor++] = '-';
+                        val = -val;
                     }
                     int num = 0;
                     char buf[20];

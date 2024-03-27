@@ -109,8 +109,9 @@ void _start(void) {
     kprintf("Hello from kprintf!\n");
     kprintf("I am a kernel!\n");
     kprintf("\n");
-    kprintf("My framebuffer lives at: %p\n", framebuffer);
-    kprintf("It is %dx%d\n", framebuffer->width, framebuffer->height);
+    kprintf("My framebuffer lives at %p.\n", framebuffer);
+    kprintf("It is %dx%d.\n", framebuffer->width, framebuffer->height);
+    kprintf("%d is a negative number.\n", -42);
     // We're done, just hang...
     hcf();
 }
